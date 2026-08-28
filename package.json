@@ -1,0 +1,25 @@
+{
+  "name": "hayat-beauty",
+  "version": "1.0.0",
+  "description": "HAYAT BEAUTY — сеть магазинов косметики и парфюмерии в Таджикистане",
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build step required'",
+    "lint": "echo 'No linting configured for static HTML project'"
+  },
+  "keywords": [
+    "beauty",
+    "cosmetics",
+    "tajikistan"
+  ],
+  "author": "HAYAT BEAUTY",
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
