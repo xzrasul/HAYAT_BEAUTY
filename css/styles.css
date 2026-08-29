@@ -181,30 +181,41 @@ canvas:active {
 
 /* ---- vacancies page ---- */
 
-.wrap {
+body.vacancies-page {
+    overflow-y: auto;
+    height: auto;
     min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 24px;
+}
+
+.vac-wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
     box-sizing: border-box;
 }
 
-.wrap h1 {
+.vac-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.vac-header .back {
+    margin-bottom: 28px;
+}
+
+.vac-header h1 {
     font-size: clamp(28px, 6vw, 44px);
     font-weight: 700;
     letter-spacing: -0.02em;
-    margin: 0 0 16px;
+    margin: 0 0 12px;
 }
 
-.wrap p {
+.vac-header p {
     font-size: 16px;
     color: #1a1a1a99;
-    max-width: 440px;
+    max-width: 480px;
     line-height: 1.5;
-    margin: 0 0 32px;
+    margin: 0 auto;
 }
 
 .back {
@@ -227,4 +238,133 @@ canvas:active {
 .back:hover {
     background: rgba(245, 247, 247, 0.9);
     transform: translateY(-1px);
+}
+
+.vac-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.vac-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 28px;
+    border-radius: 20px;
+    background: rgba(245, 247, 247, 0.55);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.vac-card:hover {
+    transform: translateY(-3px);
+    background: rgba(245, 247, 247, 0.8);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.10);
+}
+
+.vac-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.vac-card-top h2 {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0;
+}
+
+.vac-tag {
+    flex: none;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(186, 135, 248, 0.16);
+    color: #6a3fa0;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.vac-desc {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: #1a1a1acc;
+    margin: 0;
+}
+
+.vac-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 13px;
+    color: #1a1a1a88;
+}
+
+.vac-apply {
+    align-self: flex-start;
+    margin-top: auto;
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: #1a1a1a;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.vac-apply:hover {
+    background: #333;
+    transform: scale(0.98);
+}
+
+.vac-footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.vac-footer p {
+    font-size: 15px;
+    color: #1a1a1a99;
+    margin: 0 0 18px;
+}
+
+.vac-contact {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    border-radius: 999px;
+    background: rgba(245, 247, 247, 0.6);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+    color: #1a1a1a;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.vac-contact:hover {
+    background: rgba(245, 247, 247, 0.9);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 720px) {
+    .vac-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .vac-wrap {
+        padding: 40px 20px 60px;
+    }
 }
