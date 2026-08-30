@@ -89,21 +89,16 @@ if (isDesktop) {
             box.getSize(size);
             box.getCenter(center);
             const maxDim = Math.max(size.x, size.y, size.z);
-            const fitScale = maxDim > 0 ? 1.1 / maxDim : 1;
+            const fitScale = maxDim > 0 ? 3.2 / maxDim : 1;
             source.scale.multiplyScalar(fitScale);
             source.position.sub(center.multiplyScalar(fitScale));
 
-            const left = source;
-            left.position.set(-5.0, 2.1, -5.2);
-            left.rotation.set(0.05, 0.5, -0.04);
-            left.userData.baseY = left.position.y;
-            bgGroup.add(left);
-
-            const right = source.clone(true);
-            right.position.set(5.3, -2.2, -5.6);
-            right.rotation.set(-0.05, -0.55, 0.04);
-            right.userData.baseY = right.position.y;
-            bgGroup.add(right);
+            source.position.x += -4.8;
+            source.position.y += 2.4;
+            source.position.z += -7.5;
+            source.rotation.set(0, 0, 0);
+            source.userData.baseY = source.position.y;
+            bgGroup.add(source);
         },
         undefined,
         (err) => {
