@@ -65,6 +65,53 @@ loader.load(
     }
 );
 
+/* ---- ambient background piece: aiprintgen showcase, desktop only ---- */
+const bgGroup = new THREE.Group();
+scene.add(bgGroup);
+
+const isDesktop = window.innerWidth > 900;
+if (isDesktop) {
+    loader.load(
+        "aiprintgen_screenshot-20260829-205052-instagram.glb",
+        (gltf) => {
+            const source = gltf.scene;
+            source.traverse((child) => {
+                if (child.isMesh) {
+                    child.material.metalness = 0.05;
+                    child.material.roughness = 0.6;
+                    child.material.transparent = true;
+                    child.material.opacity = 0.78;
+                }
+            });
+            const box = new THREE.Box3().setFromObject(source);
+            const size = new THREE.Vector3();
+            const center = new THREE.Vector3();
+            box.getSize(size);
+            box.getCenter(center);
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const fitScale = maxDim > 0 ? 1.1 / maxDim : 1;
+            source.scale.multiplyScalar(fitScale);
+            source.position.sub(center.multiplyScalar(fitScale));
+
+            const left = source;
+            left.position.set(-5.0, 2.1, -5.2);
+            left.rotation.set(0.05, 0.5, -0.04);
+            left.userData.baseY = left.position.y;
+            bgGroup.add(left);
+
+            const right = source.clone(true);
+            right.position.set(5.3, -2.2, -5.6);
+            right.rotation.set(-0.05, -0.55, 0.04);
+            right.userData.baseY = right.position.y;
+            bgGroup.add(right);
+        },
+        undefined,
+        (err) => {
+            console.warn("Не удалось загрузить фоновую модель:", err);
+        }
+    );
+}
+
 /* ---- interaction: drag to rotate + idle float ---- */
 let baseYaw = 0, basePitch = 0;
 let dragYaw = 0, dragPitch = 0;
@@ -158,6 +205,13 @@ function frame(now) {
     group.rotation.y = baseYaw + dragYaw + idleYaw;
     group.rotation.x = basePitch + dragPitch - idleTiltY;
     group.position.y = Math.sin(elapsed * 1.6) * 0.06 + idleTiltY * 0.1;
+
+    bgGroup.rotation.y = Math.sin(elapsed * 0.12) * 0.08;
+    bgGroup.children.forEach((child, i) => {
+        const phase = i * Math.PI;
+        child.position.y = child.userData.baseY + Math.sin(elapsed * 0.5 + phase) * 0.08;
+        child.rotation.z = Math.sin(elapsed * 0.3 + phase) * 0.02;
+    });
 
     renderer.render(scene, camera);
 }
