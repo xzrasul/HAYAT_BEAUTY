@@ -77,26 +77,53 @@ if (isDesktop) {
             const source = gltf.scene;
             source.traverse((child) => {
                 if (child.isMesh) {
-                    child.material.metalness = 0.05;
-                    child.material.roughness = 0.6;
-                    child.material.transparent = true;
-                    child.material.opacity = 0.78;
+                    child.material.metalness = 0;
+                    child.material.roughness = 0.7;
                 }
             });
-            const box = new THREE.Box3().setFromObject(source);
-            const size = new THREE.Vector3();
-            const center = new THREE.Vector3();
-            box.getSize(size);
-            box.getCenter(center);
-            const maxDim = Math.max(size.x, size.y, size.z);
-            const fitScale = maxDim > 0 ? 3.2 / maxDim : 1;
-            source.scale.multiplyScalar(fitScale);
-            source.position.sub(center.multiplyScalar(fitScale));
+            /* The file is a single fused "print tree" mesh (a bear + several
+               small charms sharing one body), not separate objects. The bear
+               is the widest lobe, sitting at the bottom of the tree in local
+               space (measured from the geometry: y from -0.5 to -0.10, ears
+               included, holds the largest x/z footprint). We crop to just
+               that lobe and blow it up to cover the screen; the rest of the
+               tree scales along with it and lands far outside the camera
+               frustum. Fit by height (not width) so the whole head/face
+               stays on screen — the bear's footprint is close to square,
+               much narrower than the viewport, so fitting by width would
+               crop the ears/chin. */
+            const bearLocalBox = new THREE.Box3(
+                new THREE.Vector3(-0.192, -0.5, -0.332),
+                new THREE.Vector3(0.236, -0.10, 0.332)
+            );
+            const bearSize = new THREE.Vector3();
+            const bearCenter = new THREE.Vector3();
+            bearLocalBox.getSize(bearSize);
+            bearLocalBox.getCenter(bearCenter);
 
-            source.position.x += -4.8;
-            source.position.y += 2.4;
-            source.position.z += -7.5;
-            source.rotation.set(0, 0, 0);
+            /* At rotation (0,0,0) the bear is seen edge-on (its side profile
+               reads as a plain heart-shaped blob). Rotating -90° around Y
+               turns it to face the camera, eyes and muzzle visible. That
+               swaps which local axis is "depth" on screen: local Z becomes
+               screen-horizontal, local X becomes screen-depth. The bear is
+               rounded and fairly thick front-to-back — scaled up this large,
+               its own depth would put its front surface a couple of units
+               from the camera and warp it into an unrecognisable close-up.
+               Flatten it on (now-depth) local X into a relief so only the
+               face silhouette blows up, not the thickness. */
+            const bgZ = -9;
+            const distance = camera.position.z - bgZ;
+            const visibleHeight = 2 * Math.tan((camera.fov * Math.PI / 180) / 2) * distance;
+            const coverScale = (visibleHeight * 1.05) / bearSize.y;
+            const reliefDepth = 2.2;
+            const depthScale = reliefDepth / bearSize.x;
+            source.scale.set(depthScale, coverScale, coverScale);
+            source.rotation.set(0, -Math.PI / 2, 0);
+            source.position.set(0, 0, 0);
+            source.updateMatrixWorld(true);
+            const bearWorldCenter = bearCenter.clone().applyMatrix4(source.matrixWorld);
+            const desiredCenter = new THREE.Vector3(0, 0, bgZ);
+            source.position.copy(desiredCenter.sub(bearWorldCenter));
             source.userData.baseY = source.position.y;
             bgGroup.add(source);
         },
