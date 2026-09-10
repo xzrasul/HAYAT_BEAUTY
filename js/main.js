@@ -10,11 +10,11 @@ mountGlitterWrap(document.querySelector(".glitter-bg"), {
   color3: "#d7faa0", // --green
   speed: 3,
   density: 47,
-  starSize: 14,
+  starSize: 20,
   focalDepth: 5,
   turbulence: 4,
-  glitterIntensity: 1,
-  trailAmount: 30,
+  glitterIntensity: 1.5,
+  trailAmount: 18,
 });
 
 /* ---------- three.js scene ---------- */
