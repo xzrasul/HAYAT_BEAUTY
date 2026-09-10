@@ -99,6 +99,13 @@ a {
   overflow: hidden;
 }
 
+/* Glitter Wrap background — sits behind all hero content, over the page gradient */
+.glitter-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
 .hero-copy {
   position: relative;
   z-index: 5;

@@ -1,6 +1,21 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { mountGlitterWrap } from "./glitter-wrap.js";
+
+/* ---------- Glitter Wrap background ---------- */
+mountGlitterWrap(document.querySelector(".glitter-bg"), {
+  color1: "#fc89d3", // --pink
+  color2: "#ba87f8", // --purple
+  color3: "#d7faa0", // --green
+  speed: 2,
+  density: 70,
+  starSize: 30,
+  focalDepth: 5,
+  turbulence: 4,
+  glitterIntensity: 1.5,
+  trailAmount: 18,
+});
 
 /* ---------- three.js scene ---------- */
 const stage = document.querySelector(".stage-inner");
