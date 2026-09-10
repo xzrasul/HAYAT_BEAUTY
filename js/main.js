@@ -1,20 +1,36 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { mountGlitterWrap } from "./glitter-wrap.js";
+import { mountInfiniteHole } from "./infinite-hole.js";
 
-/* ---------- Glitter Wrap background ---------- */
-mountGlitterWrap(document.querySelector(".glitter-bg"), {
-  color1: "#fc89d3", // --pink
-  color2: "#ba87f8", // --purple
-  color3: "#d7faa0", // --green
-  speed: 2,
-  density: 70,
-  starSize: 30,
-  focalDepth: 5,
-  turbulence: 4,
-  glitterIntensity: 1.5,
-  trailAmount: 18,
+/* ---------- Infinite Hole background ---------- */
+mountInfiniteHole(document.querySelector(".hole-bg"), {
+  backgroundInner: "#eff1f3",
+  backgroundOuter: "#e0e2e9",
+  colors: ["#FC89D3", "#BA87F8", "#D7FAA0"],
+  columns: 90,
+  rows: 22,
+  speed: 30,
+  spin: 14,
+  distance: 33,
+  camera: {
+    perspective: 19,
+    cameraHeight: 20,
+  },
+  hole: {
+    depth: 168,
+    layers: 3,
+    falloff: 7,
+  },
+  waveGroup: {
+    wave: 300,
+    ripple: 366,
+  },
+  interaction: {
+    clickPulse: 160,
+    hoverSpeed: 160,
+    transition: { duration: 0.6 },
+  },
 });
 
 /* ---------- three.js scene ---------- */
