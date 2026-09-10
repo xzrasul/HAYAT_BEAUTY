@@ -1,17 +1,20 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { mountVortexDust } from "./vortex-dust.js";
+import { mountGlitterWrap } from "./glitter-wrap.js";
 
-/* ---------- Vortex Dust background ---------- */
-mountVortexDust(document.querySelector(".vortex-bg"), {
-  colorA: "#ba87f8", // --purple
-  colorB: "#fc89d3", // --pink
-  size: 3,
-  pull: 13,
-  speed: 4,
-  strength: 8,
-  followPointer: true,
+/* ---------- Glitter Wrap background ---------- */
+mountGlitterWrap(document.querySelector(".glitter-bg"), {
+  color1: "#fc89d3", // --pink
+  color2: "#ba87f8", // --purple
+  color3: "#d7faa0", // --green
+  speed: 3,
+  density: 47,
+  starSize: 14,
+  focalDepth: 5,
+  turbulence: 4,
+  glitterIntensity: 1,
+  trailAmount: 30,
 });
 
 /* ---------- three.js scene ---------- */

@@ -99,8 +99,8 @@ a {
   overflow: hidden;
 }
 
-/* Vortex Dust background — sits behind all hero content on a solid white fill */
-.vortex-bg {
+/* Glitter Wrap background — sits behind all hero content on a solid white fill */
+.glitter-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
