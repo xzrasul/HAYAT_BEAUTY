@@ -20,7 +20,6 @@
   --line: #dcdcda;
   --card: #f5f7f7;
   --pink: #fc89d3;
-  --pink-rgb: 252, 137, 211;
   --purple: #ba87f8;
   --green: #d7faa0;
   --bg-inner: #eff1f3;
@@ -66,65 +65,26 @@ a {
   font-size: 14.5px;
   font-weight: 600;
   white-space: nowrap;
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
-  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
-/* Specular highlight — the glossy top sheen every liquid-glass surface has */
-.btn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 48%);
-  pointer-events: none;
+.btn:hover {
+  opacity: 0.85;
 }
 
 .btn:active {
-  transform: scale(0.96);
+  transform: scale(0.97);
 }
 
 .btn-dark {
+  background: var(--ink);
   color: #fff;
-  background:
-    linear-gradient(160deg, rgba(var(--pink-rgb), 0.4), rgba(20, 16, 22, 0.6) 55%),
-    rgba(18, 18, 20, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.35),
-    inset 0 -8px 12px -6px rgba(0, 0, 0, 0.4),
-    0 8px 20px rgba(30, 14, 26, 0.25),
-    0 1px 3px rgba(var(--pink-rgb), 0.3);
-}
-
-.btn-dark:hover {
-  box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.45),
-    inset 0 -8px 12px -6px rgba(0, 0, 0, 0.35),
-    0 10px 26px rgba(30, 14, 26, 0.3),
-    0 2px 8px rgba(var(--pink-rgb), 0.4);
 }
 
 .btn-outline {
+  background: var(--card);
   color: var(--ink);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.3) 60%),
-    rgba(var(--pink-rgb), 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.8),
-    inset 0 -6px 10px -6px rgba(var(--pink-rgb), 0.35),
-    0 6px 16px rgba(150, 90, 130, 0.12);
-}
-
-.btn-outline:hover {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.4) 60%),
-    rgba(var(--pink-rgb), 0.2);
+  border: 1px solid #d7d7d5;
 }
 
 /* Hero */
@@ -205,7 +165,7 @@ a {
   display: block;
 }
 
-/* Payment bar — same floating white card as before, now carrying real contact links */
+/* Payment bar — liquid-glass floating card carrying real contact links */
 .payment-bar {
   position: absolute;
   left: 50%;
@@ -215,12 +175,30 @@ a {
   display: flex;
   align-items: center;
   gap: 100px;
-  background: var(--card);
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.28) 65%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 22px;
   padding: 18px 32px;
-  box-shadow: 0 20px 45px rgba(20, 20, 20, 0.10), 0 2px 6px rgba(20, 20, 20, 0.05);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -10px 16px -12px rgba(20, 20, 20, 0.15),
+    0 20px 45px rgba(20, 20, 20, 0.10),
+    0 2px 6px rgba(20, 20, 20, 0.05);
   width: min(700px, calc(100vw - 32px));
   justify-content: center;
+}
+
+/* Specular highlight — the glossy top sheen a liquid-glass surface has */
+.payment-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 50%);
+  pointer-events: none;
 }
 
 .contact-item {
